@@ -1,0 +1,58 @@
+﻿@model JoyeriaE.Models.OrdenesModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrdenesModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdCliente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdEmpleado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdEmpleado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdItem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdItem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaCreacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaFinalizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFinalizacion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdOrden }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

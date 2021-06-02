@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="JoyeriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="text" Nullable="false" />
+          <Property Name="Monto" Type="int" Nullable="false" />
+          <Property Name="Email" Type="text" />
+          <Property Name="Telefono" Type="text" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="text" Nullable="false" />
+          <Property Name="Email" Type="text" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="IdItem" />
+          </Key>
+          <Property Name="IdItem" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="text" Nullable="false" />
+          <Property Name="Precio" Type="int" Nullable="false" />
+          <Property Name="Costo" Type="int" Nullable="false" />
+          <Property Name="IdKMaterial" Type="int" Nullable="false" />
+          <Property Name="Image" Type="image" />
+        </EntityType>
+        <EntityType Name="KMaterial">
+          <Key>
+            <PropertyRef Name="IdKMaterial" />
+          </Key>
+          <Property Name="IdKMaterial" Type="int" Nullable="false" />
+          <Property Name="Kilate" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ordenes">
+          <Key>
+            <PropertyRef Name="IdOrden" />
+          </Key>
+          <Property Name="IdOrden" Type="int" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="IdEmpleado" Type="int" Nullable="false" />
+          <Property Name="IdItem" Type="int" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="FechaFinalizacion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PiedrasI">
+          <Key>
+            <PropertyRef Name="IdItem" />
+          </Key>
+          <Property Name="IdItem" Type="int" Nullable="false" />
+          <Property Name="IdTipoP" Type="int" Nullable="false" />
+          <Property Name="Dummy" Type="text" />
+        </EntityType>
+        <EntityType Name="Proveedores">
+          <Key>
+            <PropertyRef Name="IdProveedor" />
+          </Key>
+          <Property Name="IdProveedor" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="text" Nullable="false" />
+          <Property Name="Email" Type="text" />
+          <Property Name="Telefono" Type="text" Nullable="false" />
+          <Property Name="Iditem" Type="int" />
+        </EntityType>
+        <EntityType Name="TipoP">
+          <Key>
+            <PropertyRef Name="IdTipoP" />
+          </Key>
+          <Property Name="IdTipoP" Type="int" Nullable="false" />
+          <Property Name="NombreP" Type="text" Nullable="false" />
+          <Property Name="Tamano" Type="float" />
+        </EntityType>
+        <Association Name="Items_fk0">
+          <End Role="KMaterial" Type="Self.KMaterial" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KMaterial">
+              <PropertyRef Name="IdKMaterial" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="IdKMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ordenes_fk0">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ordenes_fk1">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ordenes_fk2">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="IdItem" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IdItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PiedrasI_fk0">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="PiedrasI" Type="Self.PiedrasI" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="IdItem" />
+            </Principal>
+            <Dependent Role="PiedrasI">
+              <PropertyRef Name="IdItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PiedrasI_fk1">
+          <End Role="TipoP" Type="Self.TipoP" Multiplicity="1" />
+          <End Role="PiedrasI" Type="Self.PiedrasI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoP">
+              <PropertyRef Name="IdTipoP" />
+            </Principal>
+            <Dependent Role="PiedrasI">
+              <PropertyRef Name="IdTipoP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proveedores_fk0">
+          <End Role="Items" Type="Self.Items" Multiplicity="0..1" />
+          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="IdItem" />
+            </Principal>
+            <Dependent Role="Proveedores">
+              <PropertyRef Name="Iditem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JoyeriaModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KMaterial" EntityType="Self.KMaterial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ordenes" EntityType="Self.Ordenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PiedrasI" EntityType="Self.PiedrasI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoP" EntityType="Self.TipoP" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Items_fk0" Association="Self.Items_fk0">
+            <End Role="KMaterial" EntitySet="KMaterial" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="Ordenes_fk0" Association="Self.Ordenes_fk0">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="Ordenes_fk1" Association="Self.Ordenes_fk1">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="Ordenes_fk2" Association="Self.Ordenes_fk2">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="PiedrasI_fk0" Association="Self.PiedrasI_fk0">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="PiedrasI" EntitySet="PiedrasI" />
+          </AssociationSet>
+          <AssociationSet Name="PiedrasI_fk1" Association="Self.PiedrasI_fk1">
+            <End Role="TipoP" EntitySet="TipoP" />
+            <End Role="PiedrasI" EntitySet="PiedrasI" />
+          </AssociationSet>
+          <AssociationSet Name="Proveedores_fk0" Association="Self.Proveedores_fk0">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Proveedores" EntitySet="Proveedores" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JoyeriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Monto" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.Ordenes_fk0" FromRole="Clientes" ToRole="Ordenes" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="IdEmpleado" />
+          </Key>
+          <Property Name="IdEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.Ordenes_fk1" FromRole="Empleados" ToRole="Ordenes" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="IdItem" />
+          </Key>
+          <Property Name="IdItem" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Precio" Type="Int32" Nullable="false" />
+          <Property Name="Costo" Type="Int32" Nullable="false" />
+          <Property Name="IdKMaterial" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="KMaterial" Relationship="Self.Items_fk0" FromRole="Items" ToRole="KMaterial" />
+          <NavigationProperty Name="Ordenes" Relationship="Self.Ordenes_fk2" FromRole="Items" ToRole="Ordenes" />
+          <NavigationProperty Name="PiedrasI" Relationship="Self.PiedrasI_fk0" FromRole="Items" ToRole="PiedrasI" />
+          <NavigationProperty Name="Proveedores" Relationship="Self.Proveedores_fk0" FromRole="Items" ToRole="Proveedores" />
+        </EntityType>
+        <EntityType Name="KMaterial">
+          <Key>
+            <PropertyRef Name="IdKMaterial" />
+          </Key>
+          <Property Name="IdKMaterial" Type="Int32" Nullable="false" />
+          <Property Name="Kilate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Self.Items_fk0" FromRole="KMaterial" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="Ordenes">
+          <Key>
+            <PropertyRef Name="IdOrden" />
+          </Key>
+          <Property Name="IdOrden" Type="Int32" Nullable="false" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="IdEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="IdItem" Type="Int32" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaFinalizacion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Clientes" Relationship="Self.Ordenes_fk0" FromRole="Ordenes" ToRole="Clientes" />
+          <NavigationProperty Name="Empleados" Relationship="Self.Ordenes_fk1" FromRole="Ordenes" ToRole="Empleados" />
+          <NavigationProperty Name="Items" Relationship="Self.Ordenes_fk2" FromRole="Ordenes" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="PiedrasI">
+          <Key>
+            <PropertyRef Name="IdItem" />
+          </Key>
+          <Property Name="IdItem" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoP" Type="Int32" Nullable="false" />
+          <Property Name="Dummy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Items" Relationship="Self.PiedrasI_fk0" FromRole="PiedrasI" ToRole="Items" />
+          <NavigationProperty Name="TipoP" Relationship="Self.PiedrasI_fk1" FromRole="PiedrasI" ToRole="TipoP" />
+        </EntityType>
+        <EntityType Name="Proveedores">
+          <Key>
+            <PropertyRef Name="IdProveedor" />
+          </Key>
+          <Property Name="IdProveedor" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Iditem" Type="Int32" />
+          <NavigationProperty Name="Items" Relationship="Self.Proveedores_fk0" FromRole="Proveedores" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="TipoP">
+          <Key>
+            <PropertyRef Name="IdTipoP" />
+          </Key>
+          <Property Name="IdTipoP" Type="Int32" Nullable="false" />
+          <Property Name="NombreP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tamano" Type="Double" />
+          <NavigationProperty Name="PiedrasI" Relationship="Self.PiedrasI_fk1" FromRole="TipoP" ToRole="PiedrasI" />
+        </EntityType>
+        <Association Name="Ordenes_fk0">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ordenes_fk1">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IdEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Items_fk0">
+          <End Role="KMaterial" Type="Self.KMaterial" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KMaterial">
+              <PropertyRef Name="IdKMaterial" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="IdKMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Ordenes_fk2">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="IdItem" />
+            </Principal>
+            <Dependent Role="Ordenes">
+              <PropertyRef Name="IdItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PiedrasI_fk0">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="PiedrasI" Type="Self.PiedrasI" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="IdItem" />
+            </Principal>
+            <Dependent Role="PiedrasI">
+              <PropertyRef Name="IdItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Proveedores_fk0">
+          <End Role="Items" Type="Self.Items" Multiplicity="0..1" />
+          <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="IdItem" />
+            </Principal>
+            <Dependent Role="Proveedores">
+              <PropertyRef Name="Iditem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PiedrasI_fk1">
+          <End Role="TipoP" Type="Self.TipoP" Multiplicity="1" />
+          <End Role="PiedrasI" Type="Self.PiedrasI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoP">
+              <PropertyRef Name="IdTipoP" />
+            </Principal>
+            <Dependent Role="PiedrasI">
+              <PropertyRef Name="IdTipoP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JoyeriaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" />
+          <EntitySet Name="Items" EntityType="Self.Items" />
+          <EntitySet Name="KMaterial" EntityType="Self.KMaterial" />
+          <EntitySet Name="Ordenes" EntityType="Self.Ordenes" />
+          <EntitySet Name="PiedrasI" EntityType="Self.PiedrasI" />
+          <EntitySet Name="Proveedores" EntityType="Self.Proveedores" />
+          <EntitySet Name="TipoP" EntityType="Self.TipoP" />
+          <AssociationSet Name="Ordenes_fk0" Association="Self.Ordenes_fk0">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="Ordenes_fk1" Association="Self.Ordenes_fk1">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="Items_fk0" Association="Self.Items_fk0">
+            <End Role="KMaterial" EntitySet="KMaterial" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="Ordenes_fk2" Association="Self.Ordenes_fk2">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Ordenes" EntitySet="Ordenes" />
+          </AssociationSet>
+          <AssociationSet Name="PiedrasI_fk0" Association="Self.PiedrasI_fk0">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="PiedrasI" EntitySet="PiedrasI" />
+          </AssociationSet>
+          <AssociationSet Name="Proveedores_fk0" Association="Self.Proveedores_fk0">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="Proveedores" EntitySet="Proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="PiedrasI_fk1" Association="Self.PiedrasI_fk1">
+            <End Role="TipoP" EntitySet="TipoP" />
+            <End Role="PiedrasI" EntitySet="PiedrasI" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JoyeriaModelStoreContainer" CdmEntityContainer="JoyeriaEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="JoyeriaModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleados">
+            <EntityTypeMapping TypeName="JoyeriaModel.Empleados">
+              <MappingFragment StoreEntitySet="Empleados">
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="JoyeriaModel.Items">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="IdItem" ColumnName="IdItem" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="IdKMaterial" ColumnName="IdKMaterial" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KMaterial">
+            <EntityTypeMapping TypeName="JoyeriaModel.KMaterial">
+              <MappingFragment StoreEntitySet="KMaterial">
+                <ScalarProperty Name="IdKMaterial" ColumnName="IdKMaterial" />
+                <ScalarProperty Name="Kilate" ColumnName="Kilate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ordenes">
+            <EntityTypeMapping TypeName="JoyeriaModel.Ordenes">
+              <MappingFragment StoreEntitySet="Ordenes">
+                <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+                <ScalarProperty Name="IdItem" ColumnName="IdItem" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaFinalizacion" ColumnName="FechaFinalizacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PiedrasI">
+            <EntityTypeMapping TypeName="JoyeriaModel.PiedrasI">
+              <MappingFragment StoreEntitySet="PiedrasI">
+                <ScalarProperty Name="IdItem" ColumnName="IdItem" />
+                <ScalarProperty Name="IdTipoP" ColumnName="IdTipoP" />
+                <ScalarProperty Name="Dummy" ColumnName="Dummy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedores">
+            <EntityTypeMapping TypeName="JoyeriaModel.Proveedores">
+              <MappingFragment StoreEntitySet="Proveedores">
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Iditem" ColumnName="Iditem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoP">
+            <EntityTypeMapping TypeName="JoyeriaModel.TipoP">
+              <MappingFragment StoreEntitySet="TipoP">
+                <ScalarProperty Name="IdTipoP" ColumnName="IdTipoP" />
+                <ScalarProperty Name="NombreP" ColumnName="NombreP" />
+                <ScalarProperty Name="Tamano" ColumnName="Tamano" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

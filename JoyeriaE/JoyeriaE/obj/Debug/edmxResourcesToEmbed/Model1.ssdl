@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JoyeriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="text" Nullable="false" />
+    <Property Name="Monto" Type="int" Nullable="false" />
+    <Property Name="Email" Type="text" />
+    <Property Name="Telefono" Type="text" />
+  </EntityType>
+  <EntityType Name="Empleados">
+    <Key>
+      <PropertyRef Name="IdEmpleado" />
+    </Key>
+    <Property Name="IdEmpleado" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="text" Nullable="false" />
+    <Property Name="Email" Type="text" />
+  </EntityType>
+  <EntityType Name="Items">
+    <Key>
+      <PropertyRef Name="IdItem" />
+    </Key>
+    <Property Name="IdItem" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="text" Nullable="false" />
+    <Property Name="Precio" Type="int" Nullable="false" />
+    <Property Name="Costo" Type="int" Nullable="false" />
+    <Property Name="IdKMaterial" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="KMaterial">
+    <Key>
+      <PropertyRef Name="IdKMaterial" />
+    </Key>
+    <Property Name="IdKMaterial" Type="int" Nullable="false" />
+    <Property Name="Kilate" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ordenes">
+    <Key>
+      <PropertyRef Name="IdOrden" />
+    </Key>
+    <Property Name="IdOrden" Type="int" Nullable="false" />
+    <Property Name="IdCliente" Type="int" Nullable="false" />
+    <Property Name="IdEmpleado" Type="int" Nullable="false" />
+    <Property Name="IdItem" Type="int" Nullable="false" />
+    <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+    <Property Name="FechaFinalizacion" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PiedrasI">
+    <Key>
+      <PropertyRef Name="IdItem" />
+    </Key>
+    <Property Name="IdItem" Type="int" Nullable="false" />
+    <Property Name="IdTipoP" Type="int" Nullable="false" />
+    <Property Name="Dummy" Type="text" />
+  </EntityType>
+  <EntityType Name="Proveedores">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="text" Nullable="false" />
+    <Property Name="Email" Type="text" />
+    <Property Name="Telefono" Type="text" Nullable="false" />
+    <Property Name="Iditem" Type="int" />
+  </EntityType>
+  <EntityType Name="TipoP">
+    <Key>
+      <PropertyRef Name="IdTipoP" />
+    </Key>
+    <Property Name="IdTipoP" Type="int" Nullable="false" />
+    <Property Name="NombreP" Type="text" Nullable="false" />
+    <Property Name="Tamano" Type="float" />
+  </EntityType>
+  <Association Name="Items_fk0">
+    <End Role="KMaterial" Type="Self.KMaterial" Multiplicity="1" />
+    <End Role="Items" Type="Self.Items" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KMaterial">
+        <PropertyRef Name="IdKMaterial" />
+      </Principal>
+      <Dependent Role="Items">
+        <PropertyRef Name="IdKMaterial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Ordenes_fk0">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Ordenes_fk1">
+    <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleados">
+        <PropertyRef Name="IdEmpleado" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="IdEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Ordenes_fk2">
+    <End Role="Items" Type="Self.Items" Multiplicity="1" />
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="IdItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PiedrasI_fk0">
+    <End Role="Items" Type="Self.Items" Multiplicity="1" />
+    <End Role="PiedrasI" Type="Self.PiedrasI" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="PiedrasI">
+        <PropertyRef Name="IdItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PiedrasI_fk1">
+    <End Role="TipoP" Type="Self.TipoP" Multiplicity="1" />
+    <End Role="PiedrasI" Type="Self.PiedrasI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoP">
+        <PropertyRef Name="IdTipoP" />
+      </Principal>
+      <Dependent Role="PiedrasI">
+        <PropertyRef Name="IdTipoP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proveedores_fk0">
+    <End Role="Items" Type="Self.Items" Multiplicity="0..1" />
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="Proveedores">
+        <PropertyRef Name="Iditem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="JoyeriaModelStoreContainer">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KMaterial" EntityType="Self.KMaterial" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ordenes" EntityType="Self.Ordenes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PiedrasI" EntityType="Self.PiedrasI" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoP" EntityType="Self.TipoP" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="Items_fk0" Association="Self.Items_fk0">
+      <End Role="KMaterial" EntitySet="KMaterial" />
+      <End Role="Items" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="Ordenes_fk0" Association="Self.Ordenes_fk0">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="Ordenes_fk1" Association="Self.Ordenes_fk1">
+      <End Role="Empleados" EntitySet="Empleados" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="Ordenes_fk2" Association="Self.Ordenes_fk2">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="PiedrasI_fk0" Association="Self.PiedrasI_fk0">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="PiedrasI" EntitySet="PiedrasI" />
+    </AssociationSet>
+    <AssociationSet Name="PiedrasI_fk1" Association="Self.PiedrasI_fk1">
+      <End Role="TipoP" EntitySet="TipoP" />
+      <End Role="PiedrasI" EntitySet="PiedrasI" />
+    </AssociationSet>
+    <AssociationSet Name="Proveedores_fk0" Association="Self.Proveedores_fk0">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="Proveedores" EntitySet="Proveedores" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

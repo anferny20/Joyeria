@@ -1,0 +1,66 @@
+﻿@model IEnumerable<JoyeriaE.Models.OrdenModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Ingresar nueva orden", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaFinalizacion)
+        </th>
+        <th>
+          
+        </th>
+        <th></th>
+    </tr>
+ 
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreE)
+        </td>
+        <td>       
+            @item.FechaCreacion.ToString("dd-MM-yyyy")
+        </td>
+        <td>        
+            @item.FechaFinalizacion.ToString("dd-MM-yyyy")
+        </td>
+        <td>
+            <a class="btn btn-info btn-xs" href="/Orden/Edit?id=@item.IdOrden">
+                <i class="far fa-edit fa-xs"></i>
+            </a>
+            <a class="btn btn-danger btn-xs" href="/Orden/Delete?id=@item.IdOrden">
+                <i class="far fa-trash-alt"></i>
+            </a>
+            <a class="btn btn-default btn-xs" href="/Orden/QR?id=@item.IdOrden">
+                <i class="fas fa-qrcode"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>

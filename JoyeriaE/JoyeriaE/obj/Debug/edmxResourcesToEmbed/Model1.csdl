@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JoyeriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="JoyeriaEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="JoyeriaModel.Clientes" />
+    <EntitySet Name="Empleados" EntityType="JoyeriaModel.Empleados" />
+    <EntitySet Name="Items" EntityType="JoyeriaModel.Items" />
+    <EntitySet Name="KMaterial" EntityType="JoyeriaModel.KMaterial" />
+    <EntitySet Name="Ordenes" EntityType="JoyeriaModel.Ordenes" />
+    <EntitySet Name="PiedrasI" EntityType="JoyeriaModel.PiedrasI" />
+    <EntitySet Name="Proveedores" EntityType="JoyeriaModel.Proveedores" />
+    <EntitySet Name="TipoP" EntityType="JoyeriaModel.TipoP" />
+    <AssociationSet Name="Ordenes_fk0" Association="JoyeriaModel.Ordenes_fk0">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="Ordenes_fk1" Association="JoyeriaModel.Ordenes_fk1">
+      <End Role="Empleados" EntitySet="Empleados" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="Items_fk0" Association="JoyeriaModel.Items_fk0">
+      <End Role="KMaterial" EntitySet="KMaterial" />
+      <End Role="Items" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="Ordenes_fk2" Association="JoyeriaModel.Ordenes_fk2">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="Ordenes" EntitySet="Ordenes" />
+    </AssociationSet>
+    <AssociationSet Name="PiedrasI_fk0" Association="JoyeriaModel.PiedrasI_fk0">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="PiedrasI" EntitySet="PiedrasI" />
+    </AssociationSet>
+    <AssociationSet Name="Proveedores_fk0" Association="JoyeriaModel.Proveedores_fk0">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="Proveedores" EntitySet="Proveedores" />
+    </AssociationSet>
+    <AssociationSet Name="PiedrasI_fk1" Association="JoyeriaModel.PiedrasI_fk1">
+      <End Role="TipoP" EntitySet="TipoP" />
+      <End Role="PiedrasI" EntitySet="PiedrasI" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Monto" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ordenes" Relationship="JoyeriaModel.Ordenes_fk0" FromRole="Clientes" ToRole="Ordenes" />
+  </EntityType>
+  <EntityType Name="Empleados">
+    <Key>
+      <PropertyRef Name="IdEmpleado" />
+    </Key>
+    <Property Name="IdEmpleado" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ordenes" Relationship="JoyeriaModel.Ordenes_fk1" FromRole="Empleados" ToRole="Ordenes" />
+  </EntityType>
+  <EntityType Name="Items">
+    <Key>
+      <PropertyRef Name="IdItem" />
+    </Key>
+    <Property Name="IdItem" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Precio" Type="Int32" Nullable="false" />
+    <Property Name="Costo" Type="Int32" Nullable="false" />
+    <Property Name="IdKMaterial" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="KMaterial" Relationship="JoyeriaModel.Items_fk0" FromRole="Items" ToRole="KMaterial" />
+    <NavigationProperty Name="Ordenes" Relationship="JoyeriaModel.Ordenes_fk2" FromRole="Items" ToRole="Ordenes" />
+    <NavigationProperty Name="PiedrasI" Relationship="JoyeriaModel.PiedrasI_fk0" FromRole="Items" ToRole="PiedrasI" />
+    <NavigationProperty Name="Proveedores" Relationship="JoyeriaModel.Proveedores_fk0" FromRole="Items" ToRole="Proveedores" />
+  </EntityType>
+  <EntityType Name="KMaterial">
+    <Key>
+      <PropertyRef Name="IdKMaterial" />
+    </Key>
+    <Property Name="IdKMaterial" Type="Int32" Nullable="false" />
+    <Property Name="Kilate" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Items" Relationship="JoyeriaModel.Items_fk0" FromRole="KMaterial" ToRole="Items" />
+  </EntityType>
+  <EntityType Name="Ordenes">
+    <Key>
+      <PropertyRef Name="IdOrden" />
+    </Key>
+    <Property Name="IdOrden" Type="Int32" Nullable="false" />
+    <Property Name="IdCliente" Type="Int32" Nullable="false" />
+    <Property Name="IdEmpleado" Type="Int32" Nullable="false" />
+    <Property Name="IdItem" Type="Int32" Nullable="false" />
+    <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaFinalizacion" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Clientes" Relationship="JoyeriaModel.Ordenes_fk0" FromRole="Ordenes" ToRole="Clientes" />
+    <NavigationProperty Name="Empleados" Relationship="JoyeriaModel.Ordenes_fk1" FromRole="Ordenes" ToRole="Empleados" />
+    <NavigationProperty Name="Items" Relationship="JoyeriaModel.Ordenes_fk2" FromRole="Ordenes" ToRole="Items" />
+  </EntityType>
+  <EntityType Name="PiedrasI">
+    <Key>
+      <PropertyRef Name="IdItem" />
+    </Key>
+    <Property Name="IdItem" Type="Int32" Nullable="false" />
+    <Property Name="IdTipoP" Type="Int32" Nullable="false" />
+    <Property Name="Dummy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Items" Relationship="JoyeriaModel.PiedrasI_fk0" FromRole="PiedrasI" ToRole="Items" />
+    <NavigationProperty Name="TipoP" Relationship="JoyeriaModel.PiedrasI_fk1" FromRole="PiedrasI" ToRole="TipoP" />
+  </EntityType>
+  <EntityType Name="Proveedores">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Iditem" Type="Int32" />
+    <NavigationProperty Name="Items" Relationship="JoyeriaModel.Proveedores_fk0" FromRole="Proveedores" ToRole="Items" />
+  </EntityType>
+  <EntityType Name="TipoP">
+    <Key>
+      <PropertyRef Name="IdTipoP" />
+    </Key>
+    <Property Name="IdTipoP" Type="Int32" Nullable="false" />
+    <Property Name="NombreP" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Tamano" Type="Double" />
+    <NavigationProperty Name="PiedrasI" Relationship="JoyeriaModel.PiedrasI_fk1" FromRole="TipoP" ToRole="PiedrasI" />
+  </EntityType>
+  <Association Name="Ordenes_fk0">
+    <End Type="JoyeriaModel.Clientes" Role="Clientes" Multiplicity="1" />
+    <End Type="JoyeriaModel.Ordenes" Role="Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Ordenes_fk1">
+    <End Type="JoyeriaModel.Empleados" Role="Empleados" Multiplicity="1" />
+    <End Type="JoyeriaModel.Ordenes" Role="Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleados">
+        <PropertyRef Name="IdEmpleado" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="IdEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Items_fk0">
+    <End Type="JoyeriaModel.KMaterial" Role="KMaterial" Multiplicity="1" />
+    <End Type="JoyeriaModel.Items" Role="Items" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KMaterial">
+        <PropertyRef Name="IdKMaterial" />
+      </Principal>
+      <Dependent Role="Items">
+        <PropertyRef Name="IdKMaterial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Ordenes_fk2">
+    <End Type="JoyeriaModel.Items" Role="Items" Multiplicity="1" />
+    <End Type="JoyeriaModel.Ordenes" Role="Ordenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="Ordenes">
+        <PropertyRef Name="IdItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PiedrasI_fk0">
+    <End Type="JoyeriaModel.Items" Role="Items" Multiplicity="1" />
+    <End Type="JoyeriaModel.PiedrasI" Role="PiedrasI" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="PiedrasI">
+        <PropertyRef Name="IdItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Proveedores_fk0">
+    <End Type="JoyeriaModel.Items" Role="Items" Multiplicity="0..1" />
+    <End Type="JoyeriaModel.Proveedores" Role="Proveedores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="Proveedores">
+        <PropertyRef Name="Iditem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PiedrasI_fk1">
+    <End Type="JoyeriaModel.TipoP" Role="TipoP" Multiplicity="1" />
+    <End Type="JoyeriaModel.PiedrasI" Role="PiedrasI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoP">
+        <PropertyRef Name="IdTipoP" />
+      </Principal>
+      <Dependent Role="PiedrasI">
+        <PropertyRef Name="IdTipoP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="JoyeriaModelStoreContainer" CdmEntityContainer="JoyeriaEntities1">
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="JoyeriaModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleados">
+      <EntityTypeMapping TypeName="JoyeriaModel.Empleados">
+        <MappingFragment StoreEntitySet="Empleados">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Items">
+      <EntityTypeMapping TypeName="JoyeriaModel.Items">
+        <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="IdKMaterial" ColumnName="IdKMaterial" />
+          <ScalarProperty Name="Costo" ColumnName="Costo" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdItem" ColumnName="IdItem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KMaterial">
+      <EntityTypeMapping TypeName="JoyeriaModel.KMaterial">
+        <MappingFragment StoreEntitySet="KMaterial">
+          <ScalarProperty Name="Kilate" ColumnName="Kilate" />
+          <ScalarProperty Name="IdKMaterial" ColumnName="IdKMaterial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ordenes">
+      <EntityTypeMapping TypeName="JoyeriaModel.Ordenes">
+        <MappingFragment StoreEntitySet="Ordenes">
+          <ScalarProperty Name="FechaFinalizacion" ColumnName="FechaFinalizacion" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="IdItem" ColumnName="IdItem" />
+          <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PiedrasI">
+      <EntityTypeMapping TypeName="JoyeriaModel.PiedrasI">
+        <MappingFragment StoreEntitySet="PiedrasI">
+          <ScalarProperty Name="Dummy" ColumnName="Dummy" />
+          <ScalarProperty Name="IdTipoP" ColumnName="IdTipoP" />
+          <ScalarProperty Name="IdItem" ColumnName="IdItem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedores">
+      <EntityTypeMapping TypeName="JoyeriaModel.Proveedores">
+        <MappingFragment StoreEntitySet="Proveedores">
+          <ScalarProperty Name="Iditem" ColumnName="Iditem" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoP">
+      <EntityTypeMapping TypeName="JoyeriaModel.TipoP">
+        <MappingFragment StoreEntitySet="TipoP">
+          <ScalarProperty Name="Tamano" ColumnName="Tamano" />
+          <ScalarProperty Name="NombreP" ColumnName="NombreP" />
+          <ScalarProperty Name="IdTipoP" ColumnName="IdTipoP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
